@@ -1,0 +1,31 @@
+#-------------- USE API Call --------------
+1-: http://localhost:8080/auth/login
+{
+  "username": "user",
+  "password": "user123"
+}
+
+Response:
+{
+  "accessToken": "<signed-jwt-token>",
+  "tokenType": "Bearer",
+  "expiresIn": 900
+}
+
+Call http://localhost:8080/api/user
+
+curl http://localhost:8080/api/user \
+  -H "Authorization: Bearer YOUR_TOKEN"
+-------------------------------------- ADMIN CALL -----------------
+1-: Generate Token
+
+curl --location 'http://localhost:8080/auth/login' \
+--header 'Content-Type: application/json' \
+--data '{
+  "username": "admin",
+  "password": "admin123"
+}'
+
+2-: Call AMIN API Using generated token
+curl --location 'http://localhost:8080/api/admin' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc5MjcxNTE0OCwiZXhwIjoxNzkyNzE2MDQ4fQ.LzNGOr8r1HD2jRDV6gt8Sy5HHs34DIk8vqdSeYxXWJI'
